@@ -24,16 +24,16 @@
             <span style="font-size: 14px; color: var(--td-text-color-primary); margin-right: 8px">Do not have account?</span>
             <router-link to="/signup"><t-link style="font-size: 14px; color: var(--td-text-color-secondary)">Sign up</t-link></router-link>
           </div>
-          <t-form label-width="0">
+          <t-form ref="form" :rules="FORM_RULES" :data="formData" @submit="onSubmit" label-width="0">
             <t-form-item name="email">
-              <t-input size="large" clearable placeholder="email" style="width: 100%">
+              <t-input v-model="formData.email" size="large" clearable placeholder="email" style="width: 100%">
                 <template #prefix-icon>
                   <t-icon name="mail"/>
                 </template>
               </t-input>
             </t-form-item>
             <t-form-item name="password">
-              <t-input size="large" type="password" clearable placeholder="password" style="width: 100%">
+              <t-input v-model="formData.password" size="large" type="password" clearable placeholder="password" style="width: 100%">
                 <template #prefix-icon>
                   <t-icon name="lock-on"/>
                 </template>
@@ -43,10 +43,10 @@
               <t-form-item name="remember">
                 <t-checkbox>Remember me</t-checkbox>
               </t-form-item>
-              <t-link theme="primary">Forget password?</t-link>
+              <router-link to="/forget"><t-link theme="primary">Forget password?</t-link></router-link>
             </div>
             <t-form-item>
-              <t-button theme="primary" type="submit" block size="large">Login</t-button>
+              <t-button theme="primary" type="submit" block size="large" @click="login">Login</t-button>
             </t-form-item>
           </t-form>
         </div>
@@ -59,7 +59,38 @@
 </template>
 
 <script>
+import axios from "axios";
+import {ref} from "vue";
+import { MessagePlugin } from 'tdesign-vue-next';
+
 export default {
+  setup(){
+    const FORM_RULES = {
+      email: [{ email: { ignore_max_length: true }, message: 'Invalid email address' }, {  required: true, message: 'Email required' }],
+      password: [{ required: true, message: 'Password required' }],
+    };
+    const INITIAL_DATA = {
+      email: '',
+      password: '',
+    }
+    const formData = ref({ ...INITIAL_DATA });
+
+    const onSubmit = ({ validateResult, firstError, e }) => {
+      e.preventDefault();
+      if (validateResult === true) {
+        axios.post('')
+        .then()
+      } else {
+        console.log('Validate Errors: ', firstError, validateResult);
+        MessagePlugin.warning(firstError);
+      }
+    };
+    return{
+      FORM_RULES,
+      formData,
+      onSubmit
+    }
+  },
   name: "loginView",
 }
 </script>

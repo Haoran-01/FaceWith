@@ -1,11 +1,13 @@
 import {createRouter, createWebHashHistory} from 'vue-router'
 import loginView from "@/components/LoginView/loginView";
 import signUpView from "@/components/LoginView/signUpView";
+import forgetPassView from "@/components/LoginView/forgetPassView";
 /*import store from "@/index";*/
 
 const routes = [
     { path: '/', component: loginView },
     { path: '/signup', component: signUpView },
+    { path: '/forget', component: forgetPassView },
 ]
 
 const router = createRouter({
