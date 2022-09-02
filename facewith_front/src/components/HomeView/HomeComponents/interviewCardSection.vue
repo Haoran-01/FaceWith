@@ -1,14 +1,19 @@
 <template>
-  <t-card style="width: 97.5%; margin: 0 0 25px 25px;">
+  <t-card style="width: 100%;margin-top: 24px" hoverShadow>
     <template #avatar>
       <t-avatar size="56px" :icon="icon" />
-      <span style="position: relative; left: 10px; font-size: large">销售渠道</span>
+      <span style="position: relative; left: 10px; font-size: large">Front-End Engineer Interview</span>
     </template>
     <template #actions>
-      <t-tag theme="primary"><t-icon name="discount"></t-icon>默认标签</t-tag>
+      <t-button>
+        <template #icon>
+          <t-icon name="caret-right"/>
+        </template>
+        Prepare & Start</t-button>
     </template>
     <span style="font-size: 28px; position: relative; left: 10px;">12:00~12:40</span>
-      <t-tag theme="primary" variant="light" style="position: relative; left: 15px; bottom: 5px;">默认标签</t-tag>
+      <t-tag theme="primary" variant="light" style="position: relative; left: 15px; bottom: 5px; margin-right: 8px">Code</t-tag>
+    <t-tag theme="primary" variant="light" style="position: relative; left: 15px; bottom: 5px;">Second</t-tag>
     <template #footer>
       <t-avatar-group>
         <t-avatar>L</t-avatar>

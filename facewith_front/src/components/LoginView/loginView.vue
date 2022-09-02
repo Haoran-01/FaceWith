@@ -1,14 +1,30 @@
 <template>
   <t-layout>
     <t-header>
-      <t-head-menu theme="null" height="64px">
+      <t-head-menu v-if="theme" theme="dark" height="64px">
+        <template #logo>
+          <img height="48" class="logo" src="../../image/logo_full_anti.svg" alt="logo" />
+        </template>
+        <template #operations>
+          <a href="javascript:;"><t-icon class="t-menu__operations-icon" name="view-module" style="height: 32px; width: 32px; color: white"/></a>
+          <a href="javascript:;"><t-icon class="t-menu__operations-icon" name="logo-github" style="height: 32px; width: 32px; color: white"/></a>
+          <span>
+            Change Theme
+            <t-switch size="large" v-model="theme" @change="changeTheme"/>
+          </span>
+        </template>
+      </t-head-menu>
+      <t-head-menu v-else theme="light" height="64px">
         <template #logo>
           <img height="48" class="logo" src="../../image/logo_full.svg" alt="logo" />
         </template>
         <template #operations>
-          <a href="javascript:;"><t-icon class="t-menu__operations-icon" name="internet" style="height: 32px; width: 32px"/></a>
-          <a href="javascript:;"><t-icon class="t-menu__operations-icon" name="view-module" style="height: 32px; width: 32px"/></a>
-          <a href="javascript:;"><t-icon class="t-menu__operations-icon" name="logo-github" style="height: 32px; width: 32px"/></a>
+          <a href="javascript:;"><t-icon class="t-menu__operations-icon" name="view-module" style="height: 32px; width: 32px;"/></a>
+          <a href="javascript:;"><t-icon class="t-menu__operations-icon" name="logo-github" style="height: 32px; width: 32px;"/></a>
+          <span>
+            Change Theme
+            <t-switch size="large" v-model="theme" @change="changeTheme"/>
+          </span>
         </template>
       </t-head-menu>
     </t-header>
@@ -46,13 +62,14 @@
               <router-link to="/forget"><t-link theme="primary">Forget password?</t-link></router-link>
             </div>
             <t-form-item>
-              <t-button theme="primary" type="submit" block size="large" @click="login">Login</t-button>
+              <t-button theme="primary" type="submit" block size="large">Login</t-button>
             </t-form-item>
           </t-form>
         </div>
       </t-aside>
       <t-content style="background-color: var(--td-bg-color-page)">
-        <div class="introduction-img"></div>
+        <div v-if="theme" class="introduction-img-anti"></div>
+        <div v-else class="introduction-img"></div>
       </t-content>
     </t-layout>
   </t-layout>
@@ -65,6 +82,7 @@ import { MessagePlugin } from 'tdesign-vue-next';
 
 export default {
   setup(){
+    const theme=ref(false);
     const FORM_RULES = {
       email: [{ email: { ignore_max_length: true }, message: 'Invalid email address' }, {  required: true, message: 'Email required' }],
       password: [{ required: true, message: 'Password required' }],
@@ -85,19 +103,36 @@ export default {
         MessagePlugin.warning(firstError);
       }
     };
+    const changeTheme = () => {
+      if (theme.value){
+        document.documentElement.setAttribute('theme-mode', 'dark');
+      }else {
+        document.documentElement.removeAttribute('theme-mode');
+      }
+    }
     return{
       FORM_RULES,
       formData,
-      onSubmit
+      onSubmit,
+      theme,
+      changeTheme
     }
   },
   name: "loginView",
 }
 </script>
 
-<style scoped>
+<style>
 .introduction-img{
   background-image: url("../../image/introduction_img.svg");
+  background-size: contain;
+  background-position: right;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100%;
+}
+.introduction-img-anti{
+  background-image: url("../../image/introduction_img_anti.svg");
   background-size: contain;
   background-position: right;
   background-repeat: no-repeat;

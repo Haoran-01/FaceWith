@@ -3,6 +3,7 @@ import loginView from "@/components/LoginView/loginView";
 import signUpView from "@/components/LoginView/signUpView";
 import forgetPassView from "@/components/LoginView/forgetPassView";
 import homeView from "@/components/HomeView/homeView";
+import notFoundView from "@/components/ErrorView/notFoundView";
 /*import store from "@/index";*/
 
 const routes = [
@@ -10,6 +11,11 @@ const routes = [
     { path: '/signup', component: signUpView },
     { path: '/home', component: homeView},
     { path: '/forget', component: forgetPassView },
+    {
+        path: '/:pathMatch(.*)*',
+        name: 'error-404',
+        component: notFoundView
+  }
 ]
 
 const router = createRouter({
