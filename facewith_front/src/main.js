@@ -3,7 +3,7 @@ import App from './App.vue'
 import TDesign from 'tdesign-vue-next';
 import router from "@/router";
 
-import 'tdesign-vue-next/es/style/index.css';
+import './theme.css';
 
 
 const app = createApp(App);
