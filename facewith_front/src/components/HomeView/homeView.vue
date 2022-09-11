@@ -118,9 +118,9 @@
                 <t-avatar size="100px" style="grid-area: 1 / 2 / 2 / 3;">I</t-avatar>
                 <div style="font-size: var(--td-font-size-headline-small);grid-area: 1 / 1 / 2 / 5;">Hi, interviewer! start your work today!</div>
             </div>
-            <interview-card-section/>
-            <interview-card-section/>
-            <interview-card-section/>
+            <div v-for="(item, index) in interviewData" :key="index">
+            <interview-card-section v-bind="{item, index}"/>
+            </div>
             <t-button size="large" style="width: 100%; margin-top: 24px">
               <template #icon>
                 <t-icon name="add"/>
@@ -167,9 +167,6 @@ export default {
   name: "homeView",
   components: {InterviewCardSection},
   methods: {
-    renderIcon() {
-      return <user-circle/>;
-    },
   },
   data() {
     return {
@@ -187,6 +184,41 @@ export default {
           value: 3,
         },
       ],
+      interviewData:[
+        {
+          intervieweeAvatar: '',
+          intervieweeInfo: [],
+          title: '1',
+          startTime: '12:00',
+          endTime: '14:00',
+          tags: ["code", "l"],
+          interviewers: [{name: "Tan", id: "12", job: "Front-end Engineer", department: "Wechat", tel: "1213721834" }, {name: "TE", id: "12", job: "Front-end Engineer", department: "Wechat", tel: "1213721834"}],
+          roomID: 1,
+          inviteLink: "baidu.com"
+        },
+        {
+          intervieweeAvatar: '',
+          intervieweeInfo: [],
+          title: '1',
+          startTime: '',
+          endTime: '',
+          tags: ["code", "l"],
+          interviewers: [{name: "Tan", id: "12", job: "Front-end Engineer", department: "Wechat", tel: "1213721834" }, {name: "TE", id: "12", job: "Front-end Engineer", department: "Wechat", tel: "1213721834"}],
+          roomID: 1,
+          inviteLink: "baidu.com"
+        },
+        {
+          intervieweeAvatar: '',
+          intervieweeInfo: [],
+          title: '1',
+          startTime: '',
+          endTime: '',
+          tags: ["code", "l"],
+          interviewers: [{name: "Tan", job: "Front-end Engineer", department: "Wechat", tel: "1213721834" }, {name: "TE", id: "12", job: "Front-end Engineer", department: "Wechat", tel: "1213721834"}],
+          roomID: 1,
+          inviteLink: "baidu.com"
+        },
+      ]
     };
   },
 }
