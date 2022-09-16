@@ -4,13 +4,19 @@ import signUpView from "@/components/LoginView/signUpView";
 import forgetPassView from "@/components/LoginView/forgetPassView";
 import homeView from "@/components/HomeView/homeView";
 import notFoundView from "@/components/ErrorView/notFoundView";
+import intervieweeManageView from "@/components/IntervieweeManageView/intervieweeManageView";
+import workSpaceView from "@/components/HomeView/HomeComponents/workSpaceView";
 /*import store from "@/index";*/
 
 const routes = [
     { path: '/', component: loginView },
     { path: '/signup', component: signUpView },
-    { path: '/home', component: homeView},
+    { path: '/home', component: homeView, redirect: '/home/workspace', children:[
+            { path: 'workspace', component: workSpaceView},
+            { path: 'manage', component: intervieweeManageView},
+        ]},
     { path: '/forget', component: forgetPassView },
+    { path: '/manage', component: intervieweeManageView},
     {
         path: '/:pathMatch(.*)*',
         name: 'error-404',

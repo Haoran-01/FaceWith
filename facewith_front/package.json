@@ -11,6 +11,7 @@
     "@soerenmartius/vue3-clipboard": "^0.1.2",
     "axios": "^0.27.2",
     "core-js": "^3.8.3",
+    "lodash": "^4.17.21",
     "tdesign-icons-vue-next": "^0.1.5",
     "tdesign-vue-next": "^0.20.3",
     "vue": "^3.2.13",
