@@ -6,17 +6,19 @@ import homeView from "@/components/HomeView/homeView";
 import notFoundView from "@/components/ErrorView/notFoundView";
 import intervieweeManageView from "@/components/IntervieweeManageView/intervieweeManageView";
 import workSpaceView from "@/components/HomeView/HomeComponents/workSpaceView";
+import interviewView from "@/components/InterviewView/interviewView";
 /*import store from "@/index";*/
 
 const routes = [
     { path: '/', component: loginView },
     { path: '/signup', component: signUpView },
     { path: '/home', component: homeView, redirect: '/home/workspace', children:[
-            { path: 'workspace', component: workSpaceView},
-            { path: 'manage', component: intervieweeManageView},
+            { path: 'workspace', name:'workspace', component: workSpaceView},
+            { path: 'manage', name: 'manage', component: intervieweeManageView},
         ]},
     { path: '/forget', component: forgetPassView },
     { path: '/manage', component: intervieweeManageView},
+    { path: '/meeting/:roomID', name: 'meeting', component: interviewView},
     {
         path: '/:pathMatch(.*)*',
         name: 'error-404',

@@ -45,6 +45,7 @@ export default {
           endTime: '14:00',
           tags: ["code", "l"],
           interviewers: [{name: "Tan", id: "12", job: "Front-end Engineer", department: "Wechat", tel: "1213721834" }, {name: "TE", id: "12", job: "Front-end Engineer", department: "Wechat", tel: "1213721834"}],
+          interviewee: 'zzy',
           roomID: 1,
           inviteLink: "baidu.com"
         },
@@ -56,6 +57,7 @@ export default {
           endTime: '',
           tags: ["code", "l"],
           interviewers: [{name: "Tan", id: "12", job: "Front-end Engineer", department: "Wechat", tel: "1213721834" }, {name: "TE", id: "12", job: "Front-end Engineer", department: "Wechat", tel: "1213721834"}],
+          interviewee: 'zzy',
           roomID: 1,
           inviteLink: "baidu.com"
         },
@@ -67,6 +69,7 @@ export default {
           endTime: '',
           tags: ["code", "l"],
           interviewers: [{name: "Tan", job: "Front-end Engineer", department: "Wechat", tel: "1213721834" }, {name: "TE", id: "12", job: "Front-end Engineer", department: "Wechat", tel: "1213721834"}],
+          interviewee: 'zzy',
           roomID: 1,
           inviteLink: "baidu.com"
         },

@@ -1,6 +1,8 @@
 <template>
   <t-config-provider :global-config="language">
-    <router-view></router-view>
+    <suspense>
+      <router-view></router-view>
+    </suspense>
   </t-config-provider>
 </template>
 
@@ -24,5 +26,12 @@ export default {
 <style>
 body {
   margin: 0;
+}
+.toolButton .t-button__text{
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 70% 30%;
+  height: 100%;
+  width: 100%;
 }
 </style>

@@ -3,6 +3,7 @@
     <template #avatar>
       <t-avatar size="56px"  :hide-on-load-failed="false"/>
       <span style="position: relative; left: 10px; font-size: large">{{title}}</span>
+      <span style="position: relative; left: 20px; color: var( --td-bg-color-component-active )">ID:{{roomID}}</span>
     </template>
     <template #actions>
       <t-button @click="prepare">
@@ -10,10 +11,13 @@
           <t-icon name="caret-right"/>
         </template>
         Prepare & Start</t-button>
-      <t-dialog :visible="prepareVisibility" :on-close="prepareClose" header="check info" confirm-btn="Enter the Meeting" cancel-btn="Save & Close">
+      <t-dialog :visible="prepareVisibility" :on-close="prepareClose" header="check info" :on-confirm="enterMeeting" confirm-btn="Enter the Meeting" cancel-btn="Save & Close">
         <t-form>
           <t-form-item label="Title">
             <t-input v-model="title" style="width: 240px"></t-input>
+          </t-form-item>
+          <t-form-item label="Interviewee">
+            <t-input v-model="interviewee" disabled style="width: 240px"></t-input>
           </t-form-item>
           <t-form-item label="Start Time">
               <t-time-picker v-model="startTime" format="HH:mm"></t-time-picker>
@@ -73,6 +77,7 @@
 import {ref} from "vue";
 import FAvatar from "@/components/HomeView/HomeComponents/fAvatar";
 import {toClipboard} from "@soerenmartius/vue3-clipboard";
+import router from "@/router";
 export default {
   components: {FAvatar},
   props:["item", "index"],
@@ -109,6 +114,8 @@ export default {
       inputVisible: ref(false),
       input: ref(''),
       title: ref(this.item.title),
+      interviewee: this.item.interviewee,
+      roomID: this.item.roomID,
       inviteLink: this.item.inviteLink
     }
   },
@@ -129,6 +136,9 @@ export default {
     handleCopy(val){
       toClipboard(val);
       this.$message.success({ content: 'Copied', duration: 2000 })
+    },
+    enterMeeting(){
+      router.push({path: '/meeting', name: 'meeting', params: {roomID: this.roomID}})
     }
   }
 }
