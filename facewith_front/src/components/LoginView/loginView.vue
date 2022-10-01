@@ -97,7 +97,7 @@ export default {
       e.preventDefault();
       if (validateResult === true) {
         axios.post('')
-        .then()
+        .then()//获取uid
       } else {
         console.log('Validate Errors: ', firstError, validateResult);
         MessagePlugin.warning(firstError);

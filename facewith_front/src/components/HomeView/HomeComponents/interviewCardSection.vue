@@ -78,6 +78,7 @@ import {ref} from "vue";
 import FAvatar from "@/components/HomeView/HomeComponents/fAvatar";
 import {toClipboard} from "@soerenmartius/vue3-clipboard";
 import router from "@/router";
+import {roomIDStore} from "@/store";
 export default {
   components: {FAvatar},
   props:["item", "index"],
@@ -97,6 +98,8 @@ export default {
     const inviteClose = () => {
       inviteVisibility.value = false;
     }
+    const roomIDStore1 = roomIDStore();
+
     return {
       prepareVisibility,
       prepare,
@@ -104,6 +107,7 @@ export default {
       inviteVisibility,
       invite,
       inviteClose,
+      roomIDStore1
     }
   },
   data(){
@@ -138,6 +142,7 @@ export default {
       this.$message.success({ content: 'Copied', duration: 2000 })
     },
     enterMeeting(){
+      this.roomIDStore1.roomID = this.roomID;
       router.push({path: '/meeting', name: 'meeting', params: {roomID: this.roomID}})
     }
   }
