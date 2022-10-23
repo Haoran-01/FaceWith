@@ -2,9 +2,9 @@ import random
 import string
 
 from flask import Blueprint, request, render_template, redirect, url_for, jsonify
-from forms import LoginFrom, RegisterForm, EmailCaptchaModel, ForgetFormPassword
+from forms import LoginFrom, RegisterForm, ForgetFormPassword
 from flask_login import login_user, logout_user, login_required
-from models import User, UserProfile
+from models import User, EmailCaptchaModel
 from exts import db, mail
 from flask_mail import Message
 from datetime import datetime
@@ -112,35 +112,22 @@ def my_mail():
 
 
 # 忘记密码功能-邮箱验证
-@bp.route("/forget_form_email", methods=['POST', 'GET'])
+@bp.route("/forget_password", methods=['POST', 'GET'])
 def email_check():
     data = request.get_json(silent=True)
     email = data["email"]
     captcha = data["captcha"]
-    email_model = EmailCaptchaModel.query.filter_by(email=email).first()
+    password = data["password"]
+    user = User.query.filter_by(user_email=email).first()
     captcha_model = EmailCaptchaModel.query.filter_by(email=email).first()
-    if email_model:
+    if user:
         if captcha_model.captcha == captcha:
-            global the_email
-            the_email = email_model.email
-            return {"code": 200}
+            user.user_password = generate_password_hash(password)
+            db.session.commit()
+            return {"code": 200, "message": "change successfully"}
         else:
-            return {"code": 400, "message": "captcha"}
+            return {"code": 400, "message": "wrong captcha"}
     else:
-        return {"code": 400, "message": "email"}
+        return {"code": 400, "message": "email not registered"}
 
 
-# 忘记密码功能-密码更改
-@bp.route("/forget_form_password", methods=['POST', 'GET'])
-def password_check():
-    global the_email
-    email = the_email
-    password_form = ForgetFormPassword(request.form)
-    if password_form.validate():
-        new_password = password_form.user_password.data
-        user_model = User.query.filter_by(user_email=email).first()
-        user_model.user_password = generate_password_hash(new_password)
-        db.session.commit()
-        return redirect(url_for("User.login"))
-    else:
-        return redirect(url_for("User.login"))
