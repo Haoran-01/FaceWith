@@ -96,8 +96,10 @@ export default {
     const onSubmit = ({ validateResult, firstError, e }) => {
       e.preventDefault();
       if (validateResult === true) {
-        axios.post('')
-        .then()//获取uid
+        axios.post('/login/login_form')
+        .then(function () {
+          window.location.assign(window.location.origin);
+        })//获取uid
       } else {
         console.log('Validate Errors: ', firstError, validateResult);
         MessagePlugin.warning(firstError);

@@ -119,8 +119,17 @@ export default {
     const onSubmit = ({ validateResult, firstError, e }) => {
       e.preventDefault();
       if (validateResult === true) {
-        axios.post('')
-            .then()
+        axios.post('/user/register_form', {
+          email: this.formData.email,
+          captcha: this.formData.captcha,
+          password: this.formData.password
+        })
+            .then(function () {
+              window.location.assign(window.location.origin + '/user/login');
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
       } else {
         console.log('Validate Errors: ', firstError, validateResult);
         MessagePlugin.warning(firstError);
