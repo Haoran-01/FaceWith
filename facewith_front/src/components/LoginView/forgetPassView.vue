@@ -129,7 +129,11 @@ export default {
     const onSubmit = ({ validateResult, firstError, e }) => {
       e.preventDefault();
       if (validateResult === true) {
-        axios.post('/user/forget_password')
+        axios.post('/user/forget_password', {
+          email: this.formData.email,
+          captcha: this.formData.captcha,
+          password: this.formData.password
+        })
             .then(function () {
               window.location.assign(window.location.origin + '/user/login');
             })

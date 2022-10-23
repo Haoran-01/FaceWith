@@ -96,7 +96,10 @@ export default {
     const onSubmit = ({ validateResult, firstError, e }) => {
       e.preventDefault();
       if (validateResult === true) {
-        axios.post('/login/login_form')
+        axios.post('/login/login_form', {
+          email: this.formData.email,
+          password: this.formData.password
+        })
         .then(function () {
           window.location.assign(window.location.origin);
         })//获取uid

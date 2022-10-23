@@ -55,7 +55,7 @@
                       <t-icon name="mail"/>
                     </template>
                   </t-input>
-                  <t-button theme="primary" size="large">get captcha</t-button>
+                  <t-button theme="primary" size="large" @click="send_captcha()">get captcha</t-button>
               </t-input-group>
             </t-form-item>
             <t-form-item name="password">
@@ -92,6 +92,19 @@ import axios from "axios";
 import {MessagePlugin} from "tdesign-vue-next";
 
 export default {
+  methods: {
+    send_captcha() {
+      axios.post('/user/captcha', {
+        email: this.formData.email
+      })
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+    }
+  },
   setup(){
     const theme=ref(false);
     const rePassword = (val) =>
